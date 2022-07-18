@@ -321,8 +321,8 @@ sed -i 's/PKG_HASH:=.*/PKG_HASH:=d916a26b62970e7c2f554110ed6af04c7ccff8e9f81ad17
 #sed -i 's/PKG_HASH:=.*/PKG_HASH:=f6a08f0fe75fa85d15f9c0c28182c69a5ad909229b4c230a8cbe38f91ba2d038/g' package/kcptun/Makefile
 
 # parted
-sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=3.5/g' feeds/packages/utils/parted/Makefile
-sed -i 's/PKG_HASH:=.*/PKG_HASH:=4938dd5c1c125f6c78b1f4b3e297526f18ee74aa43d45c248578b1d2470c05a2/g' feeds/packages/utils/parted/Makefile
+#sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=3.5/g' feeds/packages/utils/parted/Makefile
+#sed -i 's/PKG_HASH:=.*/PKG_HASH:=4938dd5c1c125f6c78b1f4b3e297526f18ee74aa43d45c248578b1d2470c05a2/g' feeds/packages/utils/parted/Makefile
 
 # wolfSSL
 sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=5.4.0-stable/g' package/libs/wolfssl/Makefile
