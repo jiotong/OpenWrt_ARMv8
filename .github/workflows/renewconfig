@@ -1,5 +1,5 @@
-name: 提取config
-on:
+-name: 提取config
+ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
@@ -9,7 +9,7 @@ on:
         default: 'false'
 
 
-env:
+ env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
@@ -23,12 +23,12 @@ env:
   FILE_NAME: config
   PRODUCT_NAME: Build_config
 
-jobs:
+ jobs:
   build:
     runs-on: ubuntu-20.04
     if: github.event.repository.owner.id == github.event.sender.id
 
-    name: 提取config
+    -name: 提取config
     strategy:
       fail-fast: false
       
