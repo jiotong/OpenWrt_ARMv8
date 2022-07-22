@@ -42,10 +42,10 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - name: Checkout
+    - name: 检查编译环境
       uses: actions/checkout@main
       
-    - name: Check server configuration
+    - name: 查看服务器配置信息
       run: |
         echo "警告⚠"
         echo "若分配的服务器性能不足，务必及时取消，重新运行！"
