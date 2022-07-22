@@ -90,7 +90,7 @@ jobs:
         echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
         echo "DATE1=$(date "+%Y-%m-%d")" >> $GITHUB_ENV
         
-    - name: Cache Toolchain
+    - name: 缓存设置
       uses: klever1988/cachewrtbuild@main
       with:
         ccache: 'false'
@@ -117,7 +117,7 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
-    - name: SSH connection to Actions
+    - name: SSH登录Actions
       uses: P3TERX/ssh2actions@v1.0.0
       if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
       env:
@@ -148,7 +148,7 @@ jobs:
       if: (!cancelled())
       run: df -hT
 
-    - name: Upload bin directory
+    - name: 上传到bin目录
       uses: actions/upload-artifact@main
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
@@ -208,5 +208,5 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.RELEASES_TOKEN }}
 
-    - name: Telegram notification
+    - name: 发送Telegram通知
       run: curl -k -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" -d "text=${{ env.FILE_NAME }}底包编译完成" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
