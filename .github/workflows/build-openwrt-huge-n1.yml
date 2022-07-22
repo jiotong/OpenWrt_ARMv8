@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: 编译ARMv8高大全底包
+name: 编译ARMv8_huge底包
 
 on:
   repository_dispatch:
@@ -18,9 +18,11 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
+ # 定时编译设置       
  # schedule:
  #   - cron: 0 8 * * *
 
+# 自定义参数
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
@@ -122,7 +124,7 @@ jobs:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
-    - name: 下载包文件
+    - name: 下载插件包
       id: package
       run: |
         cd openwrt
@@ -131,7 +133,7 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
-    - name: 编译固件...
+    - name: 编译固件中
       id: compile
       run: |
         cd openwrt
@@ -165,14 +167,14 @@ jobs:
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
-    - name: 上传固件
+    - name: 命名及上传固件
       uses: actions/upload-artifact@main
       if: env.UPLOAD_FIRMWARE == 'true' && steps.organize.outputs.status == 'success' && !cancelled()
       with:
         name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
 
-    - name: 创建版本发布固件
+    - name: 创建标签及发布固件
       id: release
       uses: ncipollo/release-action@v1
       with:
@@ -182,7 +184,7 @@ jobs:
         commit: main
         token: ${{ secrets.RELEASES_TOKEN }}
         body: |
-          - 此为ARMv8高大全底包，非完整固件
+          - 此为ARMv8_huge底包，非完整固件
           - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/coolsnowwolf/lede)更新记录】
           ${{ env.useVersionInfo }}
         artifacts: ${{ env.FIRMWARE }}/*
